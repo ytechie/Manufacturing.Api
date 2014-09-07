@@ -1,6 +1,12 @@
 Manufacturing.API
 =======================
 
+This is a sample REST WebAPI show for interacting with the cloud services in a manufacturing scenario. It provides programmatic access to data, users, and more.
+
+### Authentication
+
+In a production environment, access to the REST endpoints is secured by Azure Active Directory. For development purposes, you can completely disable authentication by setting the `RequireAuthentication` configuration flag in *Authentication.json" to `false`. 
+
 # License
 
 Microsoft Developer Experience & Evangelism
