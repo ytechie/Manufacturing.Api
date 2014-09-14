@@ -1,4 +1,4 @@
 ﻿{	
-	"ConfigSqlDatabaseConnectionString": "",
-	"DataSqlDatabaseConnectionString": ""
+	"ConfigSqlDatabaseConnectionString": "Server=tcp:t4ox2b8ica.database.windows.net,1433;Database=mfxConfig;User ID=mfxadmin@t4ox2b8ica;Password=asfe#afalk@343;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;",
+	"DataSqlDatabaseConnectionString": "Server=tcp:t4ox2b8ica.database.windows.net,1433;Database=mfxdb;User ID=mfxadmin@t4ox2b8ica;Password=asfe#afalk@343;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;"
 }

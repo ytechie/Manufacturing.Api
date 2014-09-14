@@ -3,9 +3,9 @@
 	"DirectoryDomain": "chrisdir.onmicrosoft.com",
 	"AppName": "ManufacturingApp",
 	"AppRedirectUri": "http://ghi",
-	"AppClientId": "",
-	"ApiClientId": "",
-	"ApiKey": "",
+	"AppClientId": "6a46ae69-f057-4d19-bd44-7a98c8eb219e",
+	"ApiClientId": "25a2e027-8d51-4f8f-9c9f-23dcee8b61a4",
+	"ApiKey": "WmNxIIq8XBk7OV4vgOG78Pxq/RIbsib0tM1ptrn/GZU=",
 	"ApiAppName": "mfxapi",
 	"ApiAppSignOnUrl": "http://abc",
 	"ApiAppId": "http://ghi"
