@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
+using System.Threading.Tasks;
 using log4net;
 using Manufacturing.Api.Data.Model;
 using Manufacturing.Api.Hubs.ChannelResolvers;
 using Manufacturing.Api.Hubs.Event;
 using Manufacturing.Framework.Dto;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Manufacturing.Api.Hubs
 {
+    [HubName("DatasourceRecord")]
     public class DatasourceRecordHub : Hub
     {
         #region Fields
@@ -79,6 +82,18 @@ namespace Manufacturing.Api.Hubs
         }
 
         #region Overrides of HubBase
+
+        /// <summary>
+        /// Called when the connection connects to this hub instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.Threading.Tasks.Task"/>
+        /// </returns>
+        public override Task OnConnected()
+        {
+            var t = 1;
+            return base.OnConnected();
+        }
 
         #endregion
 
