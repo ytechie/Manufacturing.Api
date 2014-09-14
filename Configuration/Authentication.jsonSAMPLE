@@ -1,0 +1,12 @@
+﻿{
+	"RequireAuthentication": true,
+	"DirectoryDomain": "chrisdir.onmicrosoft.com",
+	"AppName": "ManufacturingApp",
+	"AppRedirectUri": "http://ghi",
+	"AppClientId": "",
+	"ApiClientId": "",
+	"ApiKey": "",
+	"ApiAppName": "mfxapi",
+	"ApiAppSignOnUrl": "http://abc",
+	"ApiAppId": "http://ghi"
+}
