@@ -9,6 +9,8 @@ namespace Manufacturing.Api.Data.Repositories
 {
     public interface ISqlDataRepository
     {
-        IEnumerable<DataRecord> Find(int datasourceId, DateTime? startDateTime, DateTime? endDateTime, int maxRecords = 1000);        
+        IEnumerable<DataRecord> Find(int datasourceId, DateTime? startDateTime, DateTime? endDateTime, int maxRecords = 1000);
+        DataRecord FindMostRecent(int datasourceId);
+
     }
 }
