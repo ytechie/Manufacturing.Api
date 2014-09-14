@@ -2,7 +2,7 @@
 using log4net;
 using Manufacturing.Api.Data.Model;
 using Manufacturing.Api.Hubs.ChannelResolvers;
-using Manufacturing.Framework.Datasource;
+using Manufacturing.Api.Hubs.Event;
 using Manufacturing.Framework.Dto;
 using Microsoft.AspNet.SignalR;
 
@@ -16,6 +16,12 @@ namespace Manufacturing.Api.Hubs
 
         private readonly IChannelResolver<DatasourceRecord> _channelResolver;
 
+        private RandomDataSourceRecordHub _randomDataGenerator;
+
+        public delegate void ConnectionChangedEventHandler(object sender, HubConnectionEventArgs e);
+
+        public event ConnectionChangedEventHandler ConnectionChanged;
+
         #endregion
 
         #region Constructors
@@ -25,6 +31,7 @@ namespace Manufacturing.Api.Hubs
         internal DatasourceRecordHub(IChannelResolver<DatasourceRecord> channelResolver)
         {
             _channelResolver = channelResolver;
+            _randomDataGenerator= new RandomDataSourceRecordHub(this);
         }
 
         #endregion
@@ -53,7 +60,8 @@ namespace Manufacturing.Api.Hubs
                 EncodedDataType = message.EncodedDataType,
                 IntervalSeconds = message.IntervalSeconds,
                 Timestamp = message.Timestamp,
-                Value = message.Value
+                Value = message.Value,
+                Id = message.Id
             };
 
             Clients.All.notify(dataRecord);
@@ -64,10 +72,15 @@ namespace Manufacturing.Api.Hubs
             Clients.All.notify(message);
         }
 
-        public void Register(string id)
+        public void Register(int id)
         {
             _channelResolver.SetChannelId(id, Context.ConnectionId);
+            ConnectionChanged(this, new HubConnectionEventArgs{HubConnectionType = HubConnectionType.Connected, Id = id});
         }
+
+        #region Overrides of HubBase
+
+        #endregion
 
         #endregion
     }
