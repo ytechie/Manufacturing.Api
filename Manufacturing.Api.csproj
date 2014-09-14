@@ -306,6 +306,9 @@
     <Compile Include="Hubs\ChannelResolvers\DatasourceRecordChannelResolver.cs" />
     <Compile Include="Hubs\ChannelResolvers\IChannelResolver.cs" />
     <Compile Include="Hubs\DatasourceRecordHub.cs" />
+    <Compile Include="Hubs\Event\HubConnectionEventArgs.cs" />
+    <Compile Include="Hubs\Event\HubConnectionType.cs" />
+    <Compile Include="Hubs\RandomDataSourceRecordHub.cs" />
     <Compile Include="Membership\Attributes\AuthorizeMembershipInfoAccessAttribute.cs">
       <SubType>Code</SubType>
     </Compile>

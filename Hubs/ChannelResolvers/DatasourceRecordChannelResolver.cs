@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Caching;
-using Manufacturing.Framework.Datasource;
 using Manufacturing.Framework.Dto;
 
 namespace Manufacturing.Api.Hubs.ChannelResolvers
@@ -24,9 +23,9 @@ namespace Manufacturing.Api.Hubs.ChannelResolvers
             return _cache.Get(message.DatasourceId.ToString()) as string;
         }
 
-        public void SetChannelId(string domainId, string channelId)
+        public void SetChannelId(int domainId, string channelId)
         {
-            _cache.Set(domainId, channelId, new CacheItemPolicy
+            _cache.Set(domainId.ToString(), channelId, new CacheItemPolicy
             {
                 SlidingExpiration = new TimeSpan(1, 0, 0, 0),
             });

@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
+using System.Threading.Tasks;
 using log4net;
 using Manufacturing.Api.Data.Model;
 using Manufacturing.Api.Hubs.ChannelResolvers;
-using Manufacturing.Framework.Datasource;
+using Manufacturing.Api.Hubs.Event;
 using Manufacturing.Framework.Dto;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Manufacturing.Api.Hubs
 {
+    [HubName("DatasourceRecord")]
     public class DatasourceRecordHub : Hub
     {
         #region Fields
@@ -15,6 +18,12 @@ namespace Manufacturing.Api.Hubs
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IChannelResolver<DatasourceRecord> _channelResolver;
+
+        private RandomDataSourceRecordHub _randomDataGenerator;
+
+        public delegate void ConnectionChangedEventHandler(object sender, HubConnectionEventArgs e);
+
+        public event ConnectionChangedEventHandler ConnectionChanged;
 
         #endregion
 
@@ -25,6 +34,7 @@ namespace Manufacturing.Api.Hubs
         internal DatasourceRecordHub(IChannelResolver<DatasourceRecord> channelResolver)
         {
             _channelResolver = channelResolver;
+            _randomDataGenerator= new RandomDataSourceRecordHub(this);
         }
 
         #endregion
@@ -53,7 +63,8 @@ namespace Manufacturing.Api.Hubs
                 EncodedDataType = message.EncodedDataType,
                 IntervalSeconds = message.IntervalSeconds,
                 Timestamp = message.Timestamp,
-                Value = message.Value
+                Value = message.Value,
+                Id = message.Id
             };
 
             Clients.All.notify(dataRecord);
@@ -64,10 +75,27 @@ namespace Manufacturing.Api.Hubs
             Clients.All.notify(message);
         }
 
-        public void Register(string id)
+        public void Register(int id)
         {
             _channelResolver.SetChannelId(id, Context.ConnectionId);
+            ConnectionChanged(this, new HubConnectionEventArgs{HubConnectionType = HubConnectionType.Connected, Id = id});
         }
+
+        #region Overrides of HubBase
+
+        /// <summary>
+        /// Called when the connection connects to this hub instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.Threading.Tasks.Task"/>
+        /// </returns>
+        public override Task OnConnected()
+        {
+            var t = 1;
+            return base.OnConnected();
+        }
+
+        #endregion
 
         #endregion
     }

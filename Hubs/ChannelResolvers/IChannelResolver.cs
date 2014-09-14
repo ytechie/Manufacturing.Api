@@ -6,7 +6,7 @@
 
         string GetChannelId(T message);
 
-        void SetChannelId(string domainId, string channelId);
+        void SetChannelId(int domainId, string channelId);
 
         #endregion
     }
