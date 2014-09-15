@@ -64,7 +64,7 @@ namespace Manufacturing.Api.Hubs
                 IntervalSeconds = message.IntervalSeconds,
                 Timestamp = message.Timestamp,
                 Value = message.Value,
-                Id = message.Id
+                //Id = message.Id //COMMENTED OUT TO FIX THE BUILD
             };
 
             Clients.All.notify(dataRecord);
