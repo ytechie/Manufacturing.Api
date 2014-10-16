@@ -1,5 +1,5 @@
 ﻿{
-	"RequireAuthentication": true,
+	"RequireAuthentication": false,
 	"DirectoryDomain": "chrisdir.onmicrosoft.com",
 	"AppName": "ManufacturingApp",
 	"AppRedirectUri": "http://ghi",
