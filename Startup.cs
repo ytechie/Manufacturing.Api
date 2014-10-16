@@ -1,6 +1,8 @@
 ﻿using Manufacturing.Api;
 using Manufacturing.Api.App_Start;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;
@@ -21,7 +23,17 @@ namespace Manufacturing.Api
             string sbcon = @"Endpoint=sb://signal-scaleout.servicebus.windows.net/;SharedSecretIssuer=owner;SharedSecretValue=0C48TVfiEaQq3yMklA0xIrejzgTPxsrcQwyNI7Cw+wQ=";
             GlobalHost.DependencyResolver.UseServiceBus(sbcon, "plantmonitor");
              */
-            app.MapSignalR();
+
+            app.Map("/signalr", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+
+                var hubConfiguration = new HubConfiguration();
+
+                map.RunSignalR(hubConfiguration);
+            });
+
+            //app.MapSignalR("/signalr", new HubConfiguration());
 
             var startupAuth = new StartupAuth();
             startupAuth.Configuration(app);

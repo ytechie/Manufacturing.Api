@@ -3,6 +3,9 @@ using Manufacturing.Api.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Manufacturing.Api.RealtimeDataStream;
+using Manufacturing.Framework.Dto;
+using Microsoft.AspNet.SignalR;
 
 namespace Manufacturing.Api.Controllers
 {
@@ -36,6 +39,16 @@ namespace Manufacturing.Api.Controllers
         {
             var result = _repos.FindMostRecent(datasourceId);
             return result;
+        }
+
+        public void Post([FromBody] List<DatasourceRecord> records)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<DatasourceRecordHub>();
+            
+            foreach (var record in records)
+            {
+                DatasourceRecordHub.Notify(context.Clients, record);
+            }
         }
     }
 }
