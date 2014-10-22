@@ -33,6 +33,11 @@ namespace Manufacturing.Api
                 map.RunSignalR(hubConfiguration);
             });
 
+            app.Map("/api", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+            });
+
             //app.MapSignalR("/signalr", new HubConfiguration());
 
             var startupAuth = new StartupAuth();
