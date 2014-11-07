@@ -301,7 +301,6 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Data\Model\ConfigEntities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -328,7 +327,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="RealtimeDataStream\DatasourceRecordHub.cs" />
+    <Compile Include="Hubs\Alarms.cs" />
+    <Compile Include="Hubs\DatasourceRecord.cs" />
     <Compile Include="Membership\Attributes\AuthorizeMembershipInfoAccessAttribute.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -3,9 +3,9 @@ using Manufacturing.Api.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Manufacturing.Api.RealtimeDataStream;
 using Manufacturing.Framework.Dto;
 using Microsoft.AspNet.SignalR;
+using DatasourceRecord = Manufacturing.Api.Hubs.DatasourceRecord;
 
 namespace Manufacturing.Api.Controllers
 {
@@ -41,13 +41,13 @@ namespace Manufacturing.Api.Controllers
             return result;
         }
 
-        public void Post([FromBody] List<DatasourceRecord> records)
+        public void Post([FromBody] List<Framework.Dto.DatasourceRecord> records)
         {
-            var context = GlobalHost.ConnectionManager.GetHubContext<DatasourceRecordHub>();
+            var context = GlobalHost.ConnectionManager.GetHubContext<DatasourceRecord>();
             
             foreach (var record in records)
             {
-                DatasourceRecordHub.Notify(context.Clients, record);
+                DatasourceRecord.Notify(context.Clients, record);
             }
         }
     }

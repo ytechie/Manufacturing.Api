@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Dynamic;
-using System.Reactive;
 using System.Reflection;
 using log4net;
 using Manufacturing.Framework.Datasource;
-using Manufacturing.Framework.Dto;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.ServiceBus.Messaging;
 
-namespace Manufacturing.Api.RealtimeDataStream
+namespace Manufacturing.Api.Hubs
 {
     [HubName("DatasourceRecord")]
-    public class DatasourceRecordHub : Hub
+    public class DatasourceRecord : Hub
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -32,12 +29,12 @@ namespace Manufacturing.Api.RealtimeDataStream
             Groups.Remove(Context.ConnectionId, GroupLabelPrefix + datasourceId);
         }
 
-        public void Notify(DatasourceRecord message)
+        public void Notify(Framework.Dto.DatasourceRecord message)
         {
             Notify(Clients, message);
         }
 
-        public static void Notify(IHubConnectionContext<dynamic> clients, DatasourceRecord message)
+        public static void Notify(IHubConnectionContext<dynamic> clients, Framework.Dto.DatasourceRecord message)
         {
             //Filter out old data, we're only interested in real-tme
             if (message.Timestamp < DateTime.UtcNow.AddMinutes(-1))
@@ -51,13 +48,13 @@ namespace Manufacturing.Api.RealtimeDataStream
 
             switch (message.DataType)
             {
-                case DatasourceRecord.DataTypeEnum.Decimal:
+                case Framework.Dto.DatasourceRecord.DataTypeEnum.Decimal:
                     dataRecord.Value = message.GetDecimalValue();
                     break;
-                case DatasourceRecord.DataTypeEnum.Integer:
+                case Framework.Dto.DatasourceRecord.DataTypeEnum.Integer:
                     dataRecord.Value = message.GetIntValue();
                     break;
-                case DatasourceRecord.DataTypeEnum.Double:
+                case Framework.Dto.DatasourceRecord.DataTypeEnum.Double:
                     dataRecord.Value = message.GetDoubleValue();
                     break;
             }
