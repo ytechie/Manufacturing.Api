@@ -42,12 +42,10 @@ namespace Manufacturing.Api.Controllers
         }
 
         public void Post([FromBody] List<Framework.Dto.DatasourceRecord> records)
-        {
-            var context = GlobalHost.ConnectionManager.GetHubContext<DatasourceRecord>();
-            
+        {       
             foreach (var record in records)
             {
-                DatasourceRecord.Notify(context.Clients, record);
+                DatasourceRecord.Notify(record);
             }
         }
     }

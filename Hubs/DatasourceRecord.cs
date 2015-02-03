@@ -29,16 +29,13 @@ namespace Manufacturing.Api.Hubs
             Groups.Remove(Context.ConnectionId, GroupLabelPrefix + datasourceId);
         }
 
-        public void Notify(Framework.Dto.DatasourceRecord message)
-        {
-            Notify(Clients, message);
-        }
-
-        public static void Notify(IHubConnectionContext<dynamic> clients, Framework.Dto.DatasourceRecord message)
+        public static void Notify(Framework.Dto.DatasourceRecord message)
         {
             //Filter out old data, we're only interested in real-tme
             if (message.Timestamp < DateTime.UtcNow.AddMinutes(-1))
                 return;
+
+            var context = GlobalHost.ConnectionManager.GetHubContext<DatasourceRecord>();
 
             dynamic dataRecord = new ExpandoObject();
             dataRecord.DatasourceId = message.DatasourceId;
@@ -59,7 +56,7 @@ namespace Manufacturing.Api.Hubs
                     break;
             }
             
-            var group = clients.Group(GroupLabelPrefix + message.DatasourceId);
+            var group = context.Clients.Group(GroupLabelPrefix + message.DatasourceId);
             if (group != null)
             {
                 group.newRecord(dataRecord);
